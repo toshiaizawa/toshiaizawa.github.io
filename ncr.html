@@ -1,1 +1,73 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script type="text/javascript">
+	function encode() {
+		originalstr = document.spa.original.value;
+		encodedstr = "";
 
+		for (i=0; i < originalstr.length; i++) {
+			c = originalstr.charAt(i);
+
+			if ((' ' <= c && c <= '~') || (c == '\r') || (c == '\n')) {
+				//encodedstr = encodedstr + c;
+				if (c == '"') {
+					encodedstr = encodedstr + '&quot;';
+				} else if (c == '&') {
+					encodedstr = encodedstr + '&amp;';
+				} else if (c == '<') {
+					encodedstr = encodedstr + '&lt;';
+				} else if (c == '>') {
+					encodedstr = encodedstr + '&gt;';
+				} else {
+					encodedstr = encodedstr + c;
+				}
+			} else {
+				encodedstr = encodedstr + '&#' + c.charCodeAt().toString() + ';';
+			}
+
+			//encodedstr = encodedstr + c;
+		}
+
+
+		document.spa.encoded.value = encodedstr;
+		document.spa.encoded.focus();
+		document.spa.encoded.select();
+		return 0;
+	}
+
+	function encode2() {
+		originalstr = document.spa.original.value;
+		encodedstr = "";
+
+		for (i=0; i < originalstr.length; i++) {
+			c = originalstr.charAt(i);
+
+			if ((' ' <= c && c <= '~') || (c == '\r') || (c == '\n')) {
+				encodedstr = encodedstr + c;
+			} else {
+				encodedstr = encodedstr + '&#' + c.charCodeAt().toString() + ';';
+			}
+
+			//encodedstr = encodedstr + c;
+		}
+
+
+		document.spa.encoded.value = encodedstr;
+		document.spa.encoded.focus();
+		document.spa.encoded.select();
+		return 0;
+	}
+	</script>
+</head>
+<body>
+Encode text into Numeric Character Reference format.
+<form id=spa name=spa>
+	<textarea cols=80 rows=10 id="original"></textarea><br />
+	<textarea cols=80 rows=10 id="encoded"></textarea><br />
+	<input type="button" value="Encode All" onclick="encode()" />
+	<input type="button" value="Encode Select" onclick="encode2()" />
+</form>
+
+</body>
+</html>
